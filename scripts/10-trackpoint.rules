@@ -1,0 +1,2 @@
+#ACTION=="add", SUBSYSTEM=="input", ATTR{name}=="TPPS/2 IBM TrackPoint", ATTR{device/sensitivity}="211", ATTR{device/speed}="231"
+KERNEL=="serio2", SUBSYSTEM=="serio", DRIVERS=="psmouse", ATTR{sensitivity}="212", ATTR{speed}="212"  
