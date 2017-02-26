@@ -353,32 +353,26 @@ globalkeys = awful.util.table.join(
     awful.key({ altkey, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end),
 
     -- ALSA volume control
-    awful.key({ altkey }, "Up",
+    awful.key({ }, "XF86AudioRaiseVolume",
         function ()
             os.execute(string.format("amixer set %s 1%%+", beautiful.volume.channel))
             beautiful.volume.update()
         end),
-    awful.key({ altkey }, "Down",
+    awful.key({ }, "XF86AudioLowerVolume",
         function ()
             os.execute(string.format("amixer set %s 1%%-", beautiful.volume.channel))
             beautiful.volume.update()
         end),
-    awful.key({ altkey }, "m",
+    awful.key({ }, "XF86AudioMute",
         function ()
             os.execute(string.format("amixer set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
             beautiful.volume.update()
         end),
-    awful.key({ altkey, "Control" }, "m",
+    awful.key({ }, "XF86AudioMicMute",
         function ()
-            os.execute(string.format("amixer set %s 100%%", beautiful.volume.channel))
+            os.execute(string.format("amixer set Capture toggle", beautiful.volume.channel))
             beautiful.volume.update()
         end),
-
-		awful.key({ altkey, "Control" }, "0",
-				function ()
-						os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
-						beautiful.volume.update()
-				end),
 
     -- MPD control
     awful.key({ altkey, "Control" }, "Up",
@@ -447,7 +441,10 @@ globalkeys = awful.util.table.join(
                     history_path = awful.util.get_cache_dir() .. "/history_eval"
                   }
               end,
-              {description = "lua execute prompt", group = "awesome"})
+              {description = "lua execute prompt", group = "awesome"}),
+
+    awful.key({ altkey }, "space", function () kbdcfg.switch() end)
+	      
     --]]
 )
 
