@@ -10,7 +10,7 @@ local gears = require("gears")
 local lain  = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
-local os    = { getenv = os.getenv }
+local os    = { getenv = os.getenv, execute = os.execute }
 
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-dark"
@@ -240,6 +240,20 @@ local net = lain.widget.net({
     end
 })
 
+-- Keyboard
+kbdcfg = {}
+kbdcfg.cmd = "setxkbmap"
+kbdcfg.layout = { { "pl", "" , "PL" }, { "ru", "" , "RU" } } 
+kbdcfg.current = 1  -- pl is our default layout
+kbdcfg.widget = wibox.widget.textbox()
+kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current][3] .. " ")
+kbdcfg.switch = function ()
+  kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
+  local t = kbdcfg.layout[kbdcfg.current]
+  kbdcfg.widget:set_text(" " .. t[3] .. " ")
+  os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
+end
+
 -- Separators
 local spr     = wibox.widget.textbox(' ')
 local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
@@ -317,15 +331,18 @@ function theme.at_screen_connect(s)
             baticon,
             bat.widget,
             arrl_ld,
-            wibox.container.background(neticon, theme.bg_focus),
-            wibox.container.background(net.widget, theme.bg_focus),
-            arrl_dl,
-            clock.widget,
-            spr,
+	    wibox.container.background(kbdcfg.widget, theme.bg_focus),
+	    arrl_dl,
+            neticon,
+            net.widget,
             arrl_ld,
-            wibox.container.background(s.mylayoutbox, theme.bg_focus),
+            wibox.container.background(clock.widget, theme.bg_focus),
+            arrl_dl,
+            s.mylayoutbox, 
         },
     }
 end
 
 return theme
+
+
