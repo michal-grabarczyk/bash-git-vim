@@ -6,6 +6,21 @@
 !.tmux.conf
 !.vim.conf
 !/scripts
+!/.config
+
+/.config/*
+!/.config/awesome
+
+/.config/awesome/*
+!/.config/awesome/rc.lua
+!/.config/awesome/themes
+
+/.config/awesome/themes/*
+!/.config/awesome/themes/powerarrow-dark
+
+/.config/awesome/themes/powerarrow-dark/*
+!/.config/awesome/themes/powerarrow-dark/theme_personal.lua
+
 # etc...
 
 # ...even if they are in subdirectories
