@@ -352,6 +352,9 @@ globalkeys = awful.util.table.join(
     awful.key({ altkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end),
     awful.key({ altkey, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end),
 
+    -- Spectacle screenshots
+    awful.key({ modkey, "Shift"   }, "s",  function () awful.util.spawn("spectacle -rb") end),
+
     -- ALSA volume control
     awful.key({ }, "XF86AudioRaiseVolume",
         function ()
